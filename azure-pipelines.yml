@@ -10,6 +10,9 @@ variables:
 
   - name: tag
     value: '$(Build.BuildId)'
+  
+  - name: env
+    value : 'aksreadyprepworkshop.dev'
 
 stages:
 - stage: Build
@@ -49,7 +52,7 @@ stages:
     pool:
       vmImage: ubuntu-latest
 
-    environment: 'aksreadyworkshop.dev' # name of the environment to target [env name.namespace]. This will pull in the Kubernetes service connection automatically
+    environment: '$(env)' # name of the environment to target [env name.namespace]. This will pull in the Kubernetes service connection automatically
 
     strategy:
       runOnce:
