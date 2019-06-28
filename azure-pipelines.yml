@@ -58,7 +58,7 @@ stages:
           - task: DownloadPipelineArtifact@1
             inputs:
               artifactName: 'manifests'
-              downloadPath: '$(System.ArtifactsDirectory)/manifests'
+              downloadPath: '$(Build.ArtifactStagingDirectory)/manifests'
 
           - task: KubernetesManifest@0
             displayName: Create imagePullSecret from dockerRegistryServiceConnection
@@ -82,7 +82,7 @@ stages:
             inputs:
               action: deploy
               namespace: $(k8sNamespace)
-              manifests: $(System.ArtifactsDirectory)/manifests/*
+              manifests: $(Build.ArtifactStagingDirectory)/manifests/*
               imagePullSecrets: | # this automatically injects the imagePullSecret into your Kubernetes deployment configuration
                 acr-auth
               containers: |
