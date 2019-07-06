@@ -34,6 +34,7 @@ stages:
         artifactName: 'manifests'
         targetPath: 'manifests'
 
+
 - stage: DeployDev
   displayName: Deploy to dev stage
   dependsOn: Build
