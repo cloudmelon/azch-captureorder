@@ -51,7 +51,7 @@ stages:
     pool:
       vmImage: ubuntu-latest
 
-    environment: 'aksreadyprepworkshop.dev' # name of the environment to target [env name.namespace]. This will pull in the Kubernetes service connection automatically
+    environment: 'aksreadydevops.dev' # name of the environment to target [env name.namespace]. This will pull in the Kubernetes service connection automatically
 
     strategy:
       runOnce:
