@@ -6,10 +6,14 @@ variables:
     value: 'readyacr' # replace with container registry service connection name established during pipeline creation
   
   - name: imageRepository
-    value: 'azch/captureorder' # replace with your own image name to match the name in the deployment.yaml
+    value: 'captureorder' # replace with your own image name to match the name in the deployment.yaml
 
   - name: tag
     value: '$(Build.BuildId)'
+
+  - name: k8sNamespace # Kubernetes Namespace to deploy to. This variable is scoped to the DeployDev stage.
+    value: 'dev'
+
 
 stages:
 - stage: Build
@@ -39,9 +43,7 @@ stages:
   displayName: Deploy to dev stage
   dependsOn: Build
 
-  variables:
-  - name: k8sNamespace # Kubernetes Namespace to deploy to. This variable is scoped to the DeployDev stage.
-    value: 'dev'
+
       
   jobs:
   - deployment: DeployDev
