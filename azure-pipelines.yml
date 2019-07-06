@@ -3,10 +3,10 @@ variables:
   - group: captureorder-variables # Variable Group containing  'teamName', 'mongoHost', 'mongoUser' and the secret 'mongoPassword'
 
   - name: dockerRegistryServiceConnection
-    value: 'containerRegistryConnection' # replace with container registry service connection name established during pipeline creation
+    value: 'readyacr' # replace with container registry service connection name established during pipeline creation
   
   - name: imageRepository
-    value: 'captureorder' # replace with your own image name to match the name in the deployment.yaml
+    value: 'azch/captureorder' # replace with your own image name to match the name in the deployment.yaml
 
   - name: tag
     value: '$(Build.BuildId)'
@@ -29,7 +29,6 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-
     - task: PublishPipelineArtifact@0
       inputs:
         artifactName: 'manifests'
@@ -49,7 +48,7 @@ stages:
     pool:
       vmImage: ubuntu-latest
 
-    environment: 'aksworkshop.dev' # name of the environment to target [env name.namespace]. This will pull in the Kubernetes service connection automatically
+    environment: 'aksreadyprepworkshop.dev' # name of the environment to target [env name.namespace]. This will pull in the Kubernetes service connection automatically
 
     strategy:
       runOnce:
@@ -82,7 +81,7 @@ stages:
             inputs:
               action: deploy
               namespace: $(k8sNamespace)
-              manifests: $(System.ArtifactsDirectory)/manifests/*
+              manifests: $( $(System.ArtifactsDirectory)/manifests/*
               imagePullSecrets: | # this automatically injects the imagePullSecret into your Kubernetes deployment configuration
                 acr-auth
               containers: |
