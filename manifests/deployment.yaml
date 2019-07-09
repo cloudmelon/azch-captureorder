@@ -12,8 +12,6 @@ spec:
         labels:
             app: captureorder
       spec:
-        imagePullSecrets:
-        - name: acr-auth
         containers:
         - name: captureorder
           image: aksreadyacr.azurecr.io/captureorder # replace with your own repository
