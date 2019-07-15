@@ -65,11 +65,11 @@ stages:
           - task: KubernetesManifest@0
             inputs:
               action: 'createSecret'
-              kubernetesServiceConnection: 'aksworkshop-aksfinalrun-dev-1563169639307'
-              namespace: 'dev'
+              kubernetesServiceConnection: 'ReadyMelonACR'
+              namespace: $(k8sNamespace)
               secretType: 'dockerRegistry'
               secretName: 'acr-auth'
-              dockerRegistryEndpoint: 'ReadyMelonACR'
+              dockerRegistryEndpoint: 'aksfinalrunacr.azurecr.io'
 
           - task: KubernetesManifest@0
             displayName: Create secret for MongoDB
