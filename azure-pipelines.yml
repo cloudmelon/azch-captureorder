@@ -63,12 +63,13 @@ stages:
               downloadPath: '$(System.ArtifactsDirectory)/manifests'
 
           - task: KubernetesManifest@0
-            displayName: Create imagePullSecret from dockerRegistryServiceConnection
             inputs:
-              action: createSecret
-              secretName: acr-auth # we're going to inject this as an imagePullSecret in the deployment below
-              namespace: $(k8sNamespace)
-              dockerRegistryEndpoint: $(dockerRegistryServiceConnection)
+              action: 'createSecret'
+              kubernetesServiceConnection: 'aksworkshop-aksfinalrun-dev-1563169639307'
+              namespace: 'dev'
+              secretType: 'dockerRegistry'
+              secretName: 'acr-auth'
+              dockerRegistryEndpoint: 'ReadyMelonACR'
 
           - task: KubernetesManifest@0
             displayName: Create secret for MongoDB
