@@ -69,7 +69,7 @@ stages:
               namespace: $(k8sNamespace)
               secretType: 'dockerRegistry'
               secretName: 'acr-auth'
-              dockerRegistryEndpoint: 'aksfinalrunacr.azurecr.io'
+              dockerRegistryEndpoint: 'ReadyMelonACR'
 
           - task: KubernetesManifest@0
             displayName: Create secret for MongoDB
